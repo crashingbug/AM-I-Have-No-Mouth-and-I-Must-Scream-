@@ -66,3 +66,24 @@ class LocalActionExecuteResponse(BaseModel):
 
 class LocalActionStatusResponse(BaseModel):
     enabled: bool
+
+
+class MirrorAttemptModel(BaseModel):
+    url: str
+    status_code: int | None = Field(default=None, alias="statusCode")
+    success: bool
+    error: str | None = None
+
+
+class DomainReachabilityRequest(BaseModel):
+    target: str = Field(min_length=1, max_length=2_000)
+    mirrors: list[str] | None = None
+    timeout_seconds: float = Field(default=3.0, alias="timeoutSeconds", ge=0.5, le=10.0)
+
+
+class DomainReachabilityResponse(BaseModel):
+    target: str
+    verified_url: str | None = Field(default=None, alias="verifiedUrl")
+    active: bool
+    checked_mirrors: list[MirrorAttemptModel] = Field(alias="checkedMirrors")
+    message: str

@@ -3,6 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from app.api.chat import router as chat_router
 from app.api.local_actions import router as local_actions_router
+from app.api.reachability import router as reachability_router
 from app.api.speech import router as speech_router
 from app.api.web_actions import router as web_actions_router
 from app.settings import settings
@@ -20,6 +21,7 @@ app.add_middleware(
 
 app.include_router(chat_router)
 app.include_router(local_actions_router)
+app.include_router(reachability_router)
 app.include_router(speech_router)
 app.include_router(web_actions_router)
 
