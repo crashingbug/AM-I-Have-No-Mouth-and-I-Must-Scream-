@@ -26,10 +26,20 @@ app.include_router(speech_router)
 app.include_router(web_actions_router)
 
 
+@app.get("/")
+async def root() -> dict[str, str]:
+    return {
+        "service": "AM AI Assistant Backend",
+        "status": "online",
+        "frontend": "http://localhost:1420",
+        "health": "/api/health",
+        "docs": "/docs",
+    }
+
+
 # ==============================================================================
 # PHASE 0: THE HEARTBEAT (Health Check Endpoint)
 # ==============================================================================
 @app.get("/api/health")
 async def health() -> dict[str, str]:
-    # TODO (Phase 0): Return {"status": "ok"} so the frontend knows the backend is alive
     return {"status": "ok"}
